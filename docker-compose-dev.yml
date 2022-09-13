@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  webserver:
+    build:
+      context: .
+      dockerfile: DockerFileDev
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - user-api-network
+networks:
+  user-api-network:
+    driver: bridge

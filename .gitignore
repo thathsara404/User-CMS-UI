@@ -1,0 +1,8 @@
+# exclude dependencies
+/node_modules
+# dist folder
+/dist
+# exclude yarn error log
+yarn-error.log
+# exclude coverage
+/coverage
