@@ -1,4 +1,6 @@
 import { useReducer, useRef } from 'react';
+import { HTTPHelper } from '../../js/util/httpHelper';
+import { CREATE_USER_URL } from '../../js/util/urlBuilder';
 import { BigInfoButton } from './Button';
 
 const Home = () => {
@@ -39,7 +41,22 @@ const Home = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const userPayload = { ...state };
+        const userPayload = {
+            'firstName': state.firstName,
+            'lastName': state.lastName,
+            'role': state.role,
+            'email': state.email,
+            'username': state.username,
+            'password': state.password
+        };
+        HTTPHelper.post(CREATE_USER_URL, {}, userPayload).then((response, error) => {
+            if (!error) {
+                // eslint-disable-next-line no-alert
+                alert('Your profile has been created successfully !');
+            } else {
+                console.error('An error occurred: ' + error);
+            }
+        });
     };
 
     return (
@@ -87,7 +104,7 @@ const Home = () => {
                 <BigInfoButton onClick={(event) =>
                 { handleSubmit(event); }} text='Register User' />
             </form>
-
+            
         </>
     );
 };

@@ -6,3 +6,5 @@
 yarn-error.log
 # exclude coverage
 /coverage
+# exclude parcel cache
+.parcel-cache

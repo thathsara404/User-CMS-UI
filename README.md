@@ -29,7 +29,8 @@ User CMS UI is the UI for User-Service Node Express API
 | 1     | > yarn install | This command will install the dependencies. |
 | 2     | > yarn dev-build | This command will build the User CMS UI module. Once it completed you will find a new folder called dist in your folder hierarchy |
 | 3     | > yarn watch | This command will run the build and re-start the server automatically with help of nodemon and lite-server. |
-| 4     | check console | Check the console to get the UI address. |
+| 4     | > yarn dev-server | This command will run the lite server. |
+| 5     | check console | Check the console to get the UI address. |
 
 # Steps to run with Docker-Compose
 | Step  | Instructions                                | Description                                                                                               |

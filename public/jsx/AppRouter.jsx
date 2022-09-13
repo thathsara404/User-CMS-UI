@@ -9,13 +9,14 @@ import Container from './Container';
 import '../scss/container.scss';
 import { useState } from 'react';
 import { UserContext } from './context/userContext';
+import ErrorBoundary from './error/ErrorBoundary';
 
 const AppRouter = () => {
 
     const [state, setUserState] = useState({ user: {}, isLoggedIn: false });
 
     return (
-        <>
+        <ErrorBoundary>
             <UserContext.Provider value={state}>
 
                 <Router>
@@ -63,7 +64,7 @@ const AppRouter = () => {
                 </Router>
 
             </UserContext.Provider>
-        </>
+        </ErrorBoundary>
     );
 };
 
