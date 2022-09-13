@@ -12,7 +12,7 @@ const Profile = () => {
                         <h3>Last Name: {user.lastName}</h3>
                         <h3>Role: {user.role}</h3>
                     </>
-                ) : <p>User should sign in to show profile...</p>
+                ) : <p>User should sign in to view the profile...</p>
             }
         </UserContextConsumer>
     );

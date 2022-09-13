@@ -1,4 +1,7 @@
 import { useReducer, useRef } from 'react';
+import { setAuthToken } from '../../js/util/browserStorageUtil';
+import { HTTPHelper } from '../../js/util/httpHelper';
+import { LOGIN_USER_URL } from '../../js/util/urlBuilder';
 import { UserContextConsumer } from '../context/userContext';
 import { BigSuccessButton } from './Button';
 
@@ -23,9 +26,25 @@ const Login = ({ updateUserState }) => {
     );
 
     const handleSubmit = (event, user) => {
+
         event.preventDefault();
-        updateUserState(state => ({ ...state, isLoggedIn: true,
-            user: { ...user, id: 'oo0uw12n4bdkq', firstName: 'Thathsara', lastName: 'Raviraj', role: 'STUDENT' } }));
+        const payload = {
+            'username': state.username,
+            'password': state.password
+        };
+
+        HTTPHelper.post(LOGIN_USER_URL, {}, payload).then((response, error) => {
+            if (!error) {
+                updateUserState(state => ({ ...state, isLoggedIn: true,
+                    user: { ...user, id: response.id,
+                        firstName: response.firstName, lastName: response.lastName, role: response.role } }));
+                setAuthToken(response.token);
+                // eslint-disable-next-line no-alert
+                alert('Login Success !. You have access to other sections now.');
+            } else {
+                console.error('An error occurred: ' + error);
+            }
+        });
     };
 
     return (

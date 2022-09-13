@@ -1,4 +1,6 @@
 import { useReducer, useRef } from 'react';
+import { HTTPHelper } from '../../js/util/httpHelper';
+import { PATCH_USER_URL } from '../../js/util/urlBuilder';
 import { UserContextConsumer } from '../context/userContext';
 import { BigInfoButton } from './Button';
 
@@ -24,9 +26,23 @@ const Modification = ({ updateUserState }) => {
 
     const handleSubmit = (event, user) => {
         event.preventDefault();
-        const newUserData = { ...user, firstName: state.firstName, lastName: state.lastName };
-        updateUserState(state => ({ ...state,
-            user: newUserData }));
+        const patchData = { 'firstName': state.firstName, 'lastName': state.lastName };
+        HTTPHelper.patch(`${PATCH_USER_URL}${user.id}`, {}, patchData).then((response, error) => {
+            
+            const updatedData = {
+                firstName: state.firstName,
+                lastName: state.lastName
+            };
+
+            if (!error) {
+                updateUserState(state => ({ ...state,
+                    user: { ...user, firstName: patchData.firstName, lastName: patchData.lastName } }));
+                // eslint-disable-next-line no-alert
+                alert('User updated successfully !'); 
+            } else {
+                console.error('An error occurred: ' + error);
+            }
+        });
     };
 
     return (
